@@ -15,8 +15,7 @@ services:
     region: oregon          # Change to "frankfurt" for EU
     plan: free              # Upgrade to "starter" for always-on
     buildCommand: pip install -r requirements.txt
-    preDeployCommand: python manage.py migrate --noinput
-    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120
+    startCommand: python manage.py migrate --noinput && gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120
     rootDir: backend
 
     envVars:
