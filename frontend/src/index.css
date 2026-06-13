@@ -1,0 +1,261 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Base Styles ─────────────────────────────────────── */
+:root {
+  --gradient-brand: linear-gradient(135deg, #4c6ef5 0%, #7950f2 50%, #be4bdb 100%);
+  --gradient-success: linear-gradient(135deg, #20c997 0%, #12b886 100%);
+  --gradient-warm: linear-gradient(135deg, #ff6b6b 0%, #ee5a24 100%);
+  --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.06);
+  --shadow-elevated: 0 20px 60px rgba(0, 0, 0, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: #0b0c14;
+  color: #e2e6f0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ─── Glass Effect ────────────────────────────────────── */
+@layer components {
+  .glass-card {
+    @apply rounded-2xl border border-white/[0.06];
+    background: rgba(30, 32, 51, 0.6);
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-300;
+  }
+
+  .glass-card-hover:hover {
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: var(--shadow-glass);
+    transform: translateY(-2px);
+  }
+
+  .gradient-text {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 rounded-xl font-semibold text-white transition-all duration-200;
+    background: var(--gradient-brand);
+    box-shadow: 0 4px 15px rgba(76, 110, 245, 0.3);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 6px 25px rgba(76, 110, 245, 0.45);
+    transform: translateY(-1px);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+  }
+
+  .btn-secondary {
+    @apply px-5 py-2.5 rounded-xl font-medium transition-all duration-200 border;
+    border-color: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.04);
+    color: #bac8ff;
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 rounded-xl border text-sm transition-all duration-200;
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.08);
+    color: #e2e6f0;
+  }
+
+  .input-field:focus {
+    @apply outline-none;
+    border-color: #4c6ef5;
+    box-shadow: 0 0 0 3px rgba(76, 110, 245, 0.15);
+  }
+
+  .input-field::placeholder {
+    color: rgba(255, 255, 255, 0.25);
+  }
+
+  .badge {
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold;
+  }
+
+  .badge-red {
+    @apply badge;
+    background: rgba(255, 107, 107, 0.15);
+    color: #ff6b6b;
+    border: 1px solid rgba(255, 107, 107, 0.2);
+  }
+
+  .badge-yellow {
+    @apply badge;
+    background: rgba(255, 212, 59, 0.12);
+    color: #ffd43b;
+    border: 1px solid rgba(255, 212, 59, 0.2);
+  }
+
+  .badge-green {
+    @apply badge;
+    background: rgba(81, 207, 102, 0.12);
+    color: #51cf66;
+    border: 1px solid rgba(81, 207, 102, 0.2);
+  }
+
+  .badge-blue {
+    @apply badge;
+    background: rgba(76, 110, 245, 0.12);
+    color: #748ffc;
+    border: 1px solid rgba(76, 110, 245, 0.2);
+  }
+
+  .badge-purple {
+    @apply badge;
+    background: rgba(121, 80, 242, 0.12);
+    color: #9775fa;
+    border: 1px solid rgba(121, 80, 242, 0.2);
+  }
+}
+
+/* ─── Upload Drop Zone ────────────────────────────────── */
+.dropzone {
+  @apply relative flex flex-col items-center justify-center rounded-2xl border-2 border-dashed p-12 transition-all duration-300 cursor-pointer;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.dropzone:hover,
+.dropzone.active {
+  border-color: #4c6ef5;
+  background: rgba(76, 110, 245, 0.05);
+  box-shadow: 0 0 40px rgba(76, 110, 245, 0.08);
+}
+
+.dropzone.active {
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* ─── Table Styles ────────────────────────────────────── */
+.data-table {
+  @apply w-full text-sm;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.data-table thead th {
+  @apply px-4 py-3.5 text-left text-xs font-semibold uppercase tracking-wider;
+  color: rgba(255, 255, 255, 0.45);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.data-table tbody tr {
+  @apply transition-colors duration-150;
+}
+
+.data-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.data-table tbody td {
+  @apply px-4 py-3;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* Row color coding for anomalies */
+.row-skipped {
+  background: rgba(255, 107, 107, 0.06) !important;
+  border-left: 3px solid #ff6b6b;
+}
+
+.row-flagged {
+  background: rgba(255, 212, 59, 0.04) !important;
+  border-left: 3px solid #ffd43b;
+}
+
+.row-auto-fixed {
+  background: rgba(81, 207, 102, 0.04) !important;
+  border-left: 3px solid #51cf66;
+}
+
+/* ─── Animations ──────────────────────────────────────── */
+@keyframes pulse {
+  0%, 100% { border-color: #4c6ef5; }
+  50% { border-color: #7950f2; }
+}
+
+.animate-stagger > * {
+  animation: slideUp 0.4s ease-out both;
+}
+
+.animate-stagger > *:nth-child(1) { animation-delay: 0.05s; }
+.animate-stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.animate-stagger > *:nth-child(3) { animation-delay: 0.15s; }
+.animate-stagger > *:nth-child(4) { animation-delay: 0.2s; }
+.animate-stagger > *:nth-child(5) { animation-delay: 0.25s; }
+.animate-stagger > *:nth-child(6) { animation-delay: 0.3s; }
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ─── Settlement Arrow ────────────────────────────────── */
+.settlement-arrow {
+  @apply flex items-center gap-3 px-5 py-4 rounded-xl;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  transition: all 0.2s;
+}
+
+.settlement-arrow:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
