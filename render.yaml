@@ -1,0 +1,59 @@
+# render.yaml — Infrastructure-as-Code for Render.com
+# Place this file in the root of your repo.
+# Render will automatically detect it and offer a "Blueprint" deploy.
+#
+# Usage:
+#   1. Push this file to GitHub
+#   2. In Render dashboard → New → Blueprint
+#   3. Connect your repo — Render reads this file and creates all services
+
+services:
+  # ── Django API ────────────────────────────────────────────────
+  - type: web
+    name: expense-splitter-api
+    runtime: python
+    region: oregon          # Change to "frankfurt" for EU
+    plan: free              # Upgrade to "starter" for always-on
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn config.wsgi:application --bind 0.0.0.0:$PORT --workers 3 --timeout 120
+    rootDir: backend
+
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true       # Render auto-generates a secure random value
+
+      - key: DEBUG
+        value: "False"
+
+      - key: DATABASE_URL
+        fromDatabase:
+          name: expense-splitter-db
+          property: connectionString
+
+      - key: ALLOWED_HOSTS
+        sync: false               # Fill in after deploy: your-service.onrender.com
+
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false               # Fill in after Vercel deploy: https://your-app.vercel.app
+
+      - key: CSRF_TRUSTED_ORIGINS
+        sync: false               # Same as CORS_ALLOWED_ORIGINS + your Render URL
+
+      - key: USD_TO_INR_RATE
+        value: "83.0"
+
+      - key: OPENAI_API_KEY
+        sync: false               # Optional — leave blank to use rule-based detection
+
+      - key: OPENAI_MODEL
+        value: "gpt-3.5-turbo"
+
+    autoDeploy: true
+
+# ── PostgreSQL Database ────────────────────────────────────────
+databases:
+  - name: expense-splitter-db
+    region: oregon
+    plan: free
+    databaseName: expense_splitter
+    user: expense_splitter_user

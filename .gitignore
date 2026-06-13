@@ -1,0 +1,76 @@
+# ── Python ────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+*.pyo
+
+# ── Virtual Environment ────────────────────────────────────────────
+venv/
+env/
+.venv/
+ENV/
+
+# ── Django ─────────────────────────────────────────────────────────
+*.sqlite3
+db.sqlite3
+media/
+staticfiles/
+*.log
+local_settings.py
+
+# ── Environment Variables ──────────────────────────────────────────
+# NEVER commit these — they contain secrets
+.env
+.env.local
+.env.production
+backend/.env
+frontend/.env.local
+frontend/.env.production
+
+# ── IDE / Editor ──────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+
+# ── OS ────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── Node / Frontend ───────────────────────────────────────────────
+node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env.local
+frontend/.env.production
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# ── Testing / Coverage ────────────────────────────────────────────
+htmlcov/
+.coverage
+.coverage.*
+.tox/
+.pytest_cache/
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+
+# ── Render / Heroku Build Artifacts ───────────────────────────────
+.render/
